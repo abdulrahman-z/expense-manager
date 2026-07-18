@@ -11,7 +11,7 @@ export default function DashboardPage() {
         <Card title='Expense' amount={15000} />
         <Card title='Balance' amount={12000} />
       </div>
-      <div className='text-white h-[560] flex justify-between gap-8'>
+      <div className='text-white mt-6 h-140 flex justify-between gap-4'>
         <ChartView />
         <RecentsView />
       </div>
