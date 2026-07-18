@@ -1,39 +1,40 @@
+import Link from "next/link";
 import React from "react";
 
-const tHeaders = ["Title", "Date & Time", "Amount", "Transaction Mode"];
+const tHeaders = ["Title", "Date", "Amount", "Payment Type"];
 const data = [
   {
     id: 1,
     title: "Entertainment",
-    dateTime: "July 18, 4:00 PM",
+    date: "July 18 2026",
     amount: 2000,
     transactionMode: "Gpay",
   },
   {
     id: 2,
     title: "Shopping",
-    dateTime: "July 18, 4:00 PM",
+    date: "July 18 2026",
     amount: 2000,
     transactionMode: "Cash",
   },
   {
     id: 3,
     title: "E-shopping",
-    dateTime: "July 18, 4:00 PM",
+    date: "July 18 2026",
     amount: 2000,
     transactionMode: "Phonepe",
   },
   {
     id: 4,
     title: "E-shopping",
-    dateTime: "July 18, 4:00 PM",
+    date: "July 18 2026",
     amount: 2000,
     transactionMode: "Phonepe",
   },
   {
     id: 5,
     title: "E-shopping",
-    dateTime: "July 18, 4:00 PM",
+    date: "July 18 2026",
     amount: 2000,
     transactionMode: "Phonepe",
   },
@@ -63,7 +64,7 @@ export default function RecentsView() {
               return (
                 <tr key={d.id} className='text-black shadow-sm rounded-xl'>
                   <td className='p-3'>{d.title}</td>
-                  <td className='p-3'>{d.dateTime}</td>
+                  <td className='p-3'>{d.date}</td>
                   <td className='p-3'>{d.amount}</td>
                   <td className='p-3'>{d.transactionMode}</td>
                 </tr>
@@ -73,7 +74,9 @@ export default function RecentsView() {
         </table>
       </div>
       <div className='mt-7 flex items-center justify-end p-3'>
-        <button className='cursor-pointer'>Go to Transactions</button>
+        <button className='cursor-pointer'>
+          <Link href='/transactions'>Go to Transactions </Link>
+        </button>
       </div>
     </div>
   );

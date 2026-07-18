@@ -13,7 +13,7 @@ export default function ChartView() {
       "Shopping",
       "E-shopping",
       "Internet",
-      "Entertainment / OTT",
+      "Entertainment",
     ],
     datasets: [
       {
