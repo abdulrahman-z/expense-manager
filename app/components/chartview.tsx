@@ -45,7 +45,7 @@ export default function ChartView() {
     cutout: "75%",
   };
   return (
-    <div className='bg-zinc-800 sm:max-w-3/12 md:max-w-6/12 grow mt-8 rounded-2xl shadow-2xl overflow-auto'>
+    <div className='bg-zinc-800 xl:max-w-8/12 grow mt-8 rounded-2xl shadow-2xl overflow-auto'>
       <section className='w-100 h-120 p-8 mt-10 ml-20'>
         <Doughnut data={data} options={options} />
       </section>

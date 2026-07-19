@@ -1,4 +1,6 @@
 import React from "react";
+import ExpenseFormView from "../components/dialog";
+import { Button } from "@/components/ui/button";
 
 const tHeaders = [
   "Title",
@@ -87,10 +89,10 @@ export default function Transactions() {
     <div className='p-8 flex flex-col h-[860] overflow-y-auto'>
       <div className='flex items-center justify-between w-10/12'>
         <h1 className='text-white text-xl font-semibold'>Transactions</h1>
-        <button className='text-white text-xl cursor-pointer'>Add New</button>
+        <ExpenseFormView dialogTrigger='Add' dialogTitle='Add Expense' />
       </div>
 
-      <div className='bg-indigo-50 grow w-10/12 rounded-xl my-6 overflow-x-auto'>
+      <div className='bg-[#f8f9fa] grow w-10/12 rounded-xl my-6 overflow-x-auto'>
         <table className='table-auto ml-10 border-separate border-spacing-y-3 border-spacing-x-2'>
           <thead>
             <tr>
@@ -108,11 +110,21 @@ export default function Transactions() {
           <tbody>
             {data.map((d) => {
               return (
-                <tr key={d.id} className='text-black shadow-sm rounded-xl'>
-                  <td className='p-3'>{d.title}</td>
+                <tr key={d.id} className='text-black shadow-md rounded-xl'>
+                  <td className='p-3'>
+                    <ExpenseFormView
+                      dialogTrigger={d.title}
+                      dialogTitle='Edit Expense'
+                    />
+                  </td>
                   <td className='p-3'>{d.date}</td>
                   <td className='p-3'>{d.amount}</td>
                   <td className='p-3'>{d.transactionMode}</td>
+                  <td className='p-3'>{"---"}</td>
+                  <td className='p-3'>{"---"}</td>
+                  <td className='p-3'>
+                    <Button variant={"destructive"}>Delete</Button>
+                  </td>
                 </tr>
               );
             })}

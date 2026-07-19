@@ -1,0 +1,46 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "generated/prisma"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum Category {
+  internet
+  mobile
+  shopping
+  health
+  paymentTo
+  food
+  travel
+  bills
+  entertainment
+  others
+}
+
+enum PaymentType {
+  Cash
+  GPay
+  PhonePe
+  DebitCard
+}
+
+model Expense {
+  id          String      @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  amount      Int
+  category    Category
+  date        DateTime
+  paymentType PaymentType
+  subCategory String
+
+  @@map("expensedoc")
+}

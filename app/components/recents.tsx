@@ -42,7 +42,7 @@ const data = [
 
 export default function RecentsView() {
   return (
-    <div className='bg-zinc-800 sm:max-w-3/12 md:max-w-6/12 grow mt-8 p-3 rounded-2xl shadow-2xl'>
+    <div className='bg-zinc-800 xl:max-w-8/12 grow mt-8 p-3 rounded-2xl shadow-2xl'>
       <h2 className='text-medium px-2 font-semibold'>Last 5 Transactions</h2>
       <div className='bg-indigo-50 w-full rounded-xl mt-8'>
         <table className='table-auto border-separate border-spacing-y-3 border-spacing-x-2'>

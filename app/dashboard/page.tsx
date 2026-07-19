@@ -5,13 +5,11 @@ import RecentsView from "../components/recents";
 export default function DashboardPage() {
   return (
     <div className='p-8 flex flex-col'>
-      <h1 className='mb-8 text-2xl text-white'>Dashboard</h1>
+      <h1 className='mb-8 text-2xl text-black'>Dashboard</h1>
       <div className='flex gap-6 items-center'>
-        <Card title='Budget' amount={27000} />
-        <Card title='Expense' amount={15000} />
-        <Card title='Balance' amount={12000} />
+        <Card title='Expenses' amount={0} />
       </div>
-      <div className='text-white mt-6 h-140 flex justify-between gap-4'>
+      <div className='text-white mt-6 h-140 flex justify-between gap-4 sm:flex-wrap'>
         <ChartView />
         <RecentsView />
       </div>
