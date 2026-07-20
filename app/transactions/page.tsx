@@ -1,6 +1,7 @@
 import React from "react";
 import ExpenseFormView from "../components/dialog";
 import { Button } from "@/components/ui/button";
+import { getExpenses } from "../prisma-db";
 
 const tHeaders = [
   "Title",
@@ -11,80 +12,9 @@ const tHeaders = [
   "Sub-Category",
   "Actions",
 ];
-const data = [
-  {
-    id: 1,
-    title: "Entertainment",
-    date: "July 18 2026",
-    amount: 2000,
-    transactionMode: "Gpay",
-  },
-  {
-    id: 2,
-    title: "Shopping",
-    date: "July 18 2026",
-    amount: 2000,
-    transactionMode: "Cash",
-  },
-  {
-    id: 3,
-    title: "E-shopping",
-    date: "July 18 2026",
-    amount: 2000,
-    transactionMode: "Phonepe",
-  },
-  {
-    id: 4,
-    title: "E-shopping",
-    date: "July 18 2026",
-    amount: 2000,
-    transactionMode: "Phonepe",
-  },
-  {
-    id: 5,
-    title: "E-shopping",
-    date: "July 18 2026",
-    amount: 2000,
-    transactionMode: "Phonepe",
-  },
-  {
-    id: 6,
-    title: "E-shopping",
-    date: "July 18 2026",
-    amount: 2000,
-    transactionMode: "Phonepe",
-  },
-  {
-    id: 7,
-    title: "E-shopping",
-    date: "July 18 2026",
-    amount: 2000,
-    transactionMode: "Phonepe",
-  },
-  {
-    id: 8,
-    title: "E-shopping",
-    date: "July 18 2026",
-    amount: 2000,
-    transactionMode: "Phonepe",
-  },
-  {
-    id: 9,
-    title: "E-shopping",
-    date: "July 18 2026",
-    amount: 2000,
-    transactionMode: "Phonepe",
-  },
-  {
-    id: 10,
-    title: "E-shopping",
-    date: "July 18 2026",
-    amount: 2000,
-    transactionMode: "Phonepe",
-  },
-];
 
-export default function Transactions() {
+export default async function Transactions() {
+  const data = await getExpenses();
   return (
     <div className='p-8 flex flex-col h-[860] overflow-y-auto'>
       <div className='flex items-center justify-between w-10/12'>
@@ -108,7 +38,7 @@ export default function Transactions() {
             </tr>
           </thead>
           <tbody>
-            {data.map((d) => {
+            {data?.map((d) => {
               return (
                 <tr key={d.id} className='text-black shadow-md rounded-xl'>
                   <td className='p-3'>
@@ -117,11 +47,11 @@ export default function Transactions() {
                       dialogTitle='Edit Expense'
                     />
                   </td>
-                  <td className='p-3'>{d.date}</td>
+                  <td className='p-3'>{d.date.toDateString()}</td>
                   <td className='p-3'>{d.amount}</td>
-                  <td className='p-3'>{d.transactionMode}</td>
-                  <td className='p-3'>{"---"}</td>
-                  <td className='p-3'>{"---"}</td>
+                  <td className='p-3'>{d.paymentType}</td>
+                  <td className='p-3'>{d.category}</td>
+                  <td className='p-3'>{d.subCategory}</td>
                   <td className='p-3'>
                     <Button variant={"destructive"}>Delete</Button>
                   </td>

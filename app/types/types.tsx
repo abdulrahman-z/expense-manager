@@ -1,9 +1,9 @@
 export const Payments = [
   { label: "Select payment type", value: null },
   { label: "Cash", value: "Cash" },
-  { label: "Gpay", value: "Gpay" },
-  { label: "Phonepe", value: "Phonepe" },
-  { label: "Debit card", value: "Debit card" },
+  { label: "Gpay", value: "GPay" },
+  { label: "Phonepe", value: "PhonePe" },
+  { label: "Debit card", value: "DebitCard" },
 ];
 
 export const categories = [
@@ -12,10 +12,10 @@ export const categories = [
   { label: "Mobile", value: "mobile" },
   { label: "Food", value: "food" },
   { label: "Entertainment", value: "entertainment" },
-  { label: "Shopping", value: "Shopping" },
-  { label: "Health", value: "Health" },
+  { label: "Shopping", value: "shopping" },
+  { label: "Health", value: "health" },
   { label: "PaymentTo", value: "payment-to" },
-  { label: "E-shopping", value: "e-shopping" },
+  // { label: "E-shopping", value: "e-shopping" },
   { label: "Travel", value: "travel" },
   { label: "Others", value: "others" },
 ];
@@ -33,3 +33,35 @@ export const subCategories = [
   { label: "Travel", value: "travel" },
   { label: "Others", value: "others" },
 ];
+
+export type Category =
+  | "internet"
+  | "mobile"
+  | "food"
+  | "entertainment"
+  | "shopping"
+  | "health"
+  | "paymentTo"
+  // | "e-shopping"
+  | "travel"
+  | "others";
+
+export type PaymentType = "Cash" | "GPay" | "PhonePe" | "DebitCard";
+
+export type transaction = {
+  id: string;
+  title: string;
+  amount: number;
+  category: Category;
+  date: Date;
+  paymentType: PaymentType;
+  subCategory: string;
+};
+
+export type recentTransaction = {
+  id: string;
+  title: string;
+  amount: number;
+  date: Date;
+  paymentType: PaymentType;
+};

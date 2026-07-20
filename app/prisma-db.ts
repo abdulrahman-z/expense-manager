@@ -1,4 +1,5 @@
 import { PrismaClient } from "@/prisma/generated/prisma/client";
+import { Category, PaymentType } from "./types/types";
 
 const prisma = new PrismaClient();
 
@@ -32,4 +33,31 @@ seedData();
 
 export const getExpenses = async () => {
   return await prisma.expense.findMany();
+};
+
+export const getRecentExpenses = async () => {
+  return await prisma.expense.findMany({
+    take: 5,
+  });
+};
+
+export const addExpense = async (
+  title: string,
+  amount: number,
+  date: Date,
+  paymentType: PaymentType,
+  category: Category,
+  subCategory: string,
+) => {
+  const newExpense = await prisma.expense.create({
+    data: {
+      title,
+      amount,
+      date,
+      paymentType,
+      category,
+      subCategory,
+    },
+  });
+  return { data: newExpense };
 };
