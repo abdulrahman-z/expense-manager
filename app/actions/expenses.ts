@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { addExpense } from "../prisma-db";
+import { addExpense, removeExpense } from "../prisma-db";
 import { Category, PaymentType } from "../types/types";
 
 export type FormErrors = {
@@ -62,6 +62,11 @@ export const createExpense = async (
     };
   }
 
-  revalidatePath("/transaction");
+  revalidatePath("/transactions");
   return { canSubmit: true, errors: {} };
+};
+
+export const deleteExpense = async (id: string) => {
+  await removeExpense(id);
+  revalidatePath("/transactions");
 };

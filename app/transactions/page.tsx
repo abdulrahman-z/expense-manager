@@ -2,16 +2,8 @@ import React from "react";
 import ExpenseFormView from "../components/dialog";
 import { Button } from "@/components/ui/button";
 import { getExpenses } from "../prisma-db";
-
-const tHeaders = [
-  "Title",
-  "Date",
-  "Amount",
-  "Payment Type",
-  "Category",
-  "Sub-Category",
-  "Actions",
-];
+import { tableHeaders } from "../types/types";
+import { deleteExpense } from "../actions/expenses";
 
 export default async function Transactions() {
   const data = await getExpenses();
@@ -26,7 +18,7 @@ export default async function Transactions() {
         <table className='table-auto ml-10 border-separate border-spacing-y-3 border-spacing-x-2'>
           <thead>
             <tr>
-              {tHeaders.map((header, idx) => {
+              {tableHeaders.map((header, idx) => {
                 return (
                   <React.Fragment key={idx}>
                     <th className='text-black text-left font-semibold text-sm p-3'>
@@ -53,7 +45,15 @@ export default async function Transactions() {
                   <td className='p-3'>{d.category}</td>
                   <td className='p-3'>{d.subCategory}</td>
                   <td className='p-3'>
-                    <Button variant={"destructive"}>Delete</Button>
+                    <form action={deleteExpense.bind(null, d.id)}>
+                      <Button
+                        type='submit'
+                        className='cursor-pointer'
+                        variant={"destructive"}
+                      >
+                        Delete
+                      </Button>
+                    </form>
                   </td>
                 </tr>
               );

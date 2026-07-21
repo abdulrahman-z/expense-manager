@@ -36,13 +36,13 @@ export const subCategories = [
 
 export type Category =
   | "internet"
+  | "bills"
   | "mobile"
   | "food"
   | "entertainment"
   | "shopping"
   | "health"
   | "paymentTo"
-  // | "e-shopping"
   | "travel"
   | "others";
 
@@ -52,8 +52,8 @@ export type transaction = {
   id: string;
   title: string;
   amount: number;
-  category: Category;
   date: Date;
+  category: Category;
   paymentType: PaymentType;
   subCategory: string;
 };
@@ -65,3 +65,13 @@ export type recentTransaction = {
   date: Date;
   paymentType: PaymentType;
 };
+
+export const tableHeaders = [
+  "Title",
+  "Date",
+  "Amount",
+  "Payment Type",
+  "Category",
+  "Sub-Category",
+  "Actions",
+];

@@ -1,12 +1,14 @@
 import Link from "next/link";
 import React from "react";
-import { getRecentExpenses } from "../prisma-db";
 import { recentTransaction } from "../types/types";
 
 const tHeaders = ["Title", "Date", "Amount", "Payment Type"];
 
-export default async function RecentsView() {
-  const recentList: recentTransaction[] = await getRecentExpenses();
+export default function RecentsView({
+  recentExpenses,
+}: {
+  recentExpenses: recentTransaction[];
+}) {
   return (
     <div className='bg-zinc-800 flex flex-col xl:max-w-8/12 grow mt-8 p-3 rounded-2xl shadow-2xl'>
       <h2 className='text-medium px-2 font-semibold'>Last 5 Transactions</h2>
@@ -26,7 +28,7 @@ export default async function RecentsView() {
             </tr>
           </thead>
           <tbody>
-            {recentList?.map((d) => {
+            {recentExpenses?.map((d) => {
               return (
                 <tr key={d.id} className='text-black shadow-sm rounded-xl'>
                   <td className='p-3'>{d.title}</td>

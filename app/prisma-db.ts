@@ -35,11 +35,11 @@ export const getExpenses = async () => {
   return await prisma.expense.findMany();
 };
 
-export const getRecentExpenses = async () => {
-  return await prisma.expense.findMany({
-    take: 5,
-  });
-};
+// export const getRecentExpenses = async () => {
+//   return await prisma.expense.findMany({
+//     take: 5,
+//   });
+// };
 
 export const addExpense = async (
   title: string,
@@ -60,4 +60,10 @@ export const addExpense = async (
     },
   });
   return { data: newExpense };
+};
+
+export const removeExpense = async (id: string) => {
+  await prisma.expense.delete({
+    where: { id },
+  });
 };
