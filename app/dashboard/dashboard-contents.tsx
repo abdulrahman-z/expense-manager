@@ -28,20 +28,18 @@ export default function DashboardContent({
   expenses: transaction[];
   recentExpenses: recentTransaction[];
 }) {
-  const now = new Date();
-
   const [selectedMonth, setSelectedMonth] = useState<number | "all">(
-    now.getMonth(),
+    new Date().getMonth(),
   );
   const [selectedYear, setSelectedYear] = useState<number | "all">(
-    now.getFullYear(),
+    new Date().getFullYear(),
   );
 
   const availableYears = useMemo(() => {
     const years = new Set<number>(
       expenses.map((e) => new Date(e.date).getFullYear()),
     );
-    if (years.size === 0) years.add(now.getFullYear());
+    if (years.size === 0) years.add(new Date().getFullYear());
     return Array.from(years).sort((a, b) => b - a);
   }, [expenses]);
 
