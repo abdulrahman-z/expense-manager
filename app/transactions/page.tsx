@@ -4,9 +4,17 @@ import { Button } from "@/components/ui/button";
 import { getExpenses } from "../prisma-db";
 import { tableHeaders } from "../types/types";
 import { deleteExpense } from "../actions/expenses";
+import PaginationUI from "../components/pagination";
 
-export default async function Transactions() {
-  const data = await getExpenses();
+export default async function Transactions({
+  searchParams,
+}: {
+  searchParams: Promise<{ page: string }>;
+}) {
+  const { page } = await searchParams;
+  const currentPage = Number(page) || 1;
+  const { data, totalPages } = await getExpenses(currentPage);
+
   return (
     <div className='p-8 flex flex-col h-[860] overflow-y-auto'>
       <div className='flex items-center justify-between w-10/12'>
@@ -39,7 +47,7 @@ export default async function Transactions() {
                       dialogTitle='Edit Expense'
                     />
                   </td>
-                  <td className='p-3'>{d.date.toDateString()}</td>
+                  <td className='p-3'>{d.date.toLocaleDateString()}</td>
                   <td className='p-3'>{d.amount}</td>
                   <td className='p-3'>{d.paymentType}</td>
                   <td className='p-3'>{d.category}</td>
@@ -60,6 +68,9 @@ export default async function Transactions() {
             })}
           </tbody>
         </table>
+        <div className='flex justify-end mr-36'>
+          <PaginationUI currentPage={currentPage} totalPages={totalPages} />
+        </div>
       </div>
     </div>
   );

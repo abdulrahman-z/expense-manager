@@ -8,7 +8,7 @@ export default function SideBar() {
       </h1>
       <nav className='flex flex-col mt-16 gap-3 text-zinc-600 font-semibold tracking-wider text-xl'>
         <Link href='/dashboard'>Dashboard</Link>
-        <Link href='/transactions'>Transactions</Link>
+        <Link href='/transactions?page=1'>Transactions</Link>
       </nav>
     </aside>
   );

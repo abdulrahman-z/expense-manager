@@ -62,11 +62,11 @@ export const createExpense = async (
     };
   }
 
-  revalidatePath("/transactions");
+  revalidatePath("/transactions?page=1");
   return { canSubmit: true, errors: {} };
 };
 
 export const deleteExpense = async (id: string) => {
   await removeExpense(id);
-  revalidatePath("/transactions");
+  revalidatePath("/transactions?page=1");
 };

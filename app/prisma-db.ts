@@ -31,8 +31,17 @@ const seedData = async () => {
 
 seedData();
 
-export const getExpenses = async () => {
-  return await prisma.expense.findMany();
+export const getExpenses = async (page: number = 1, size: number = 8) => {
+  const skip = (page - 1) * size;
+  const [data, total] = await Promise.all([
+    prisma.expense.findMany({
+      skip,
+      take: size,
+      orderBy: { date: "desc" },
+    }),
+    prisma.expense.count(),
+  ]);
+  return { data, total, totalPages: Math.ceil(total / size) };
 };
 
 // export const getRecentExpenses = async () => {
