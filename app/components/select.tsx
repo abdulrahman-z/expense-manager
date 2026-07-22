@@ -3,7 +3,6 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
@@ -12,13 +11,15 @@ export default function SelectMenu({
   items,
   id,
   name,
+  defaultValue,
 }: {
   items: { label: string; value: null | string }[];
   id: string;
   name: string;
+  defaultValue?: string | null;
 }) {
   return (
-    <Select items={items} name={name}>
+    <Select items={items} name={name} defaultValue={defaultValue ?? undefined}>
       <SelectTrigger id={id} className='w-full max-w-full'>
         <SelectValue />
       </SelectTrigger>

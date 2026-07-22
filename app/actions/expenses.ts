@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { addExpense, removeExpense } from "../prisma-db";
+import { addExpense, removeExpense, updateExpenseData } from "../prisma-db";
 import { Category, PaymentType } from "../types/types";
 
 export type FormErrors = {
@@ -62,11 +62,60 @@ export const createExpense = async (
     };
   }
 
-  revalidatePath("/transactions?page=1");
+  revalidatePath("/transactions");
   return { canSubmit: true, errors: {} };
 };
 
 export const deleteExpense = async (id: string) => {
   await removeExpense(id);
-  revalidatePath("/transactions?page=1");
+  revalidatePath("/transactions");
+};
+
+export const updateExpense = async (
+  id: string,
+  prevState: FormState,
+  formData: FormData,
+): Promise<FormState> => {
+  const title = formData.get("title") as string;
+  const amount = formData.get("amount") as string;
+  const date = formData.get("date") as string;
+  const paymentType = formData.get("payment") as PaymentType;
+  const category = formData.get("category") as Category;
+  const subCategory = formData.get("subcategory") as string;
+
+  const errors: FormErrors = {};
+  if (!title) errors.title = "Title is a required field";
+  if (!amount) errors.amount = "Amount is a required field";
+  if (!date) errors.date = "Date is a required field";
+  if (!paymentType) errors.paymentType = "Payment type is a required field";
+  if (!category) errors.category = "Category is a required field";
+  if (!subCategory) errors.subCategory = "Sub category is a required field";
+
+  if (Object.keys(errors).length) {
+    return { canSubmit: false, errors };
+  }
+
+  try {
+    const dateObj = new Date(date);
+    await updateExpenseData(
+      id,
+      title,
+      Number(amount),
+      dateObj,
+      paymentType,
+      category,
+      subCategory,
+    );
+  } catch (err) {
+    console.error("Update Expense failed:", err);
+    return {
+      canSubmit: false,
+      errors: {
+        general: "Something went wrong while saving. Please try again.",
+      },
+    };
+  }
+
+  revalidatePath("/transactions");
+  return { canSubmit: true, errors: {} };
 };

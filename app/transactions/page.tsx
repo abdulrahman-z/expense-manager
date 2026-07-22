@@ -45,6 +45,7 @@ export default async function Transactions({
                     <ExpenseFormView
                       dialogTrigger={d.title}
                       dialogTitle='Edit Expense'
+                      expenseData={d}
                     />
                   </td>
                   <td className='p-3'>{d.date.toLocaleDateString()}</td>

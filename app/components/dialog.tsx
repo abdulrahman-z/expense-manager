@@ -15,23 +15,35 @@ import { Field, FieldGroup } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import SelectMenu from "./select";
-import { categories, Payments, subCategories } from "../types/types";
-import { createExpense, FormState } from "../actions/expenses";
+import {
+  categories,
+  Payments,
+  subCategories,
+  transaction,
+} from "../types/types";
+import { createExpense, FormState, updateExpense } from "../actions/expenses";
 import { useActionState, useRef, useState } from "react";
+import { dateFormatter } from "@/lib/utils";
 
 export default function ExpenseFormView({
   dialogTrigger,
   dialogTitle,
+  expenseData,
 }: {
   dialogTrigger: string;
   dialogTitle: string;
+  expenseData?: transaction;
 }) {
   const initialState: FormState = { canSubmit: false, errors: {} };
   const [open, setOpen] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
 
+  const action = expenseData
+    ? updateExpense.bind(null, expenseData?.id)
+    : createExpense;
+
   const handleSubmit = async (prevState: FormState, formData: FormData) => {
-    const result = await createExpense(prevState, formData);
+    const result = await action(prevState, formData);
     if (result.canSubmit) {
       formRef.current?.reset();
       setOpen(false);
@@ -68,6 +80,7 @@ export default function ExpenseFormView({
                 id='title'
                 name='title'
                 placeholder='Enter expense title'
+                defaultValue={expenseData?.title}
               />
               {state.errors?.title && (
                 <p className='text-red-400 font-medium'>{state.errors.title}</p>
@@ -75,7 +88,13 @@ export default function ExpenseFormView({
             </Field>
             <Field>
               <Label htmlFor='amount'>Amount</Label>
-              <Input id='amount' type='number' min={0} name='amount' />
+              <Input
+                id='amount'
+                type='number'
+                min={0}
+                name='amount'
+                defaultValue={expenseData?.amount}
+              />
               {state.errors?.amount && (
                 <p className='text-red-400 font-medium'>
                   {state.errors.amount}
@@ -83,15 +102,28 @@ export default function ExpenseFormView({
               )}
             </Field>
             <Field>
-              <Label htmlFor='date'>date</Label>
-              <Input id='date' type='date' min={0} name='date' />
+              <Label htmlFor='date'>Date</Label>
+              <Input
+                id='date'
+                type='date'
+                min={0}
+                name='date'
+                defaultValue={
+                  expenseData?.date && dateFormatter(expenseData?.date)
+                }
+              />
               {state.errors?.date && (
                 <p className='text-red-400 font-medium'>{state.errors.date}</p>
               )}
             </Field>
             <Field>
               <Label htmlFor='payment'>Payment Type</Label>
-              <SelectMenu items={Payments} id='payment' name='payment' />
+              <SelectMenu
+                items={Payments}
+                id='payment'
+                name='payment'
+                defaultValue={expenseData?.paymentType}
+              />
               {state.errors?.paymentType && (
                 <p className='text-red-400 font-medium'>
                   {state.errors.paymentType}
@@ -100,7 +132,12 @@ export default function ExpenseFormView({
             </Field>
             <Field>
               <Label htmlFor='category'>Category</Label>
-              <SelectMenu items={categories} id='category' name='category' />
+              <SelectMenu
+                items={categories}
+                id='category'
+                name='category'
+                defaultValue={expenseData?.category}
+              />
               {state.errors?.category && (
                 <p className='text-red-400 font-medium'>
                   {state.errors.category}
@@ -113,6 +150,7 @@ export default function ExpenseFormView({
                 items={subCategories}
                 id='subcategory'
                 name='subcategory'
+                defaultValue={expenseData?.subCategory}
               />
               {state.errors?.subCategory && (
                 <p className='text-red-400 font-medium'>

@@ -37,7 +37,9 @@ export default function DashboardContent({
 
   const availableYears = useMemo(() => {
     const years = new Set<number>(
-      expenses.map((e) => new Date(e.date).getFullYear()),
+      expenses.map((e) => {
+        return new Date(e.date).getFullYear();
+      }),
     );
     if (years.size === 0) years.add(new Date().getFullYear());
     return Array.from(years).sort((a, b) => b - a);
