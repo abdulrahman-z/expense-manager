@@ -24,6 +24,7 @@ import {
 import { createExpense, FormState, updateExpense } from "../actions/expenses";
 import { useActionState, useRef, useState } from "react";
 import { dateFormatter } from "@/lib/utils";
+import { CirclePlus } from "lucide-react";
 
 export default function ExpenseFormView({
   dialogTrigger,
@@ -63,7 +64,7 @@ export default function ExpenseFormView({
             className={"bg-white"}
             variant={dialogTrigger === "Add" ? "outline" : "ghost"}
           >
-            {dialogTrigger}
+            {dialogTrigger === "Add" ? <CirclePlus /> : dialogTrigger}
           </Button>
         }
       />

@@ -7,6 +7,8 @@ import {
   PaginationNext,
 } from "@/components/ui/pagination";
 
+const PAGE_VIEW_SIZE = 5;
+
 export default async function PaginationUI({
   currentPage,
   totalPages,
@@ -14,6 +16,16 @@ export default async function PaginationUI({
   currentPage: number;
   totalPages: number;
 }) {
+  const currentGroup = Math.floor((currentPage - 1) / PAGE_VIEW_SIZE);
+
+  const startPage = currentGroup * PAGE_VIEW_SIZE + 1;
+  const endPage = Math.min(startPage + PAGE_VIEW_SIZE - 1, totalPages);
+
+  const pages = Array.from(
+    { length: endPage - startPage + 1 },
+    (_, i) => startPage + i,
+  );
+
   return (
     <div>
       <Pagination className='mt-6'>
@@ -28,7 +40,7 @@ export default async function PaginationUI({
             />
           </PaginationItem>
 
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
+          {pages.map((p) => (
             <PaginationItem key={p}>
               <PaginationLink
                 href={`/transactions?page=${p}`}

@@ -11,7 +11,7 @@ export default function RecentsView({
 }) {
   return (
     <div className='bg-zinc-800 flex flex-col xl:max-w-8/12 grow mt-8 p-3 rounded-2xl shadow-2xl'>
-      <h2 className='text-medium px-2 font-semibold'>Last 5 Transactions</h2>
+      <h2 className='text-xl px-2 py-2 font-semibold'>Last 5 Transactions</h2>
       <div className='bg-indigo-50 grow w-full rounded-xl mt-8'>
         <table className='table-auto border-separate border-spacing-y-3 border-spacing-x-2'>
           <thead>
@@ -43,7 +43,12 @@ export default function RecentsView({
       </div>
       <div className='mt-7 p-3 flex justify-end'>
         <button className='cursor-pointer'>
-          <Link href='/transactions'>Go to Transactions </Link>
+          <Link
+            href='/transactions'
+            className='text-lg px-2 py-2 font-semibold hover:underline'
+          >
+            Go to Transactions{" "}
+          </Link>
         </button>
       </div>
     </div>

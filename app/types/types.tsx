@@ -14,7 +14,7 @@ export const categories = [
   { label: "Entertainment", value: "entertainment" },
   { label: "Shopping", value: "shopping" },
   { label: "Health", value: "health" },
-  { label: "PaymentTo", value: "payment-to" },
+  { label: "PaymentTo", value: "paymentTo" },
   // { label: "E-shopping", value: "e-shopping" },
   { label: "Travel", value: "travel" },
   { label: "Others", value: "others" },

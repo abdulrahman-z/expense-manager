@@ -42,7 +42,7 @@ export const getExpenses = async (
     prisma.expense.findMany({
       skip,
       take,
-      orderBy: { date: "desc" },
+      orderBy: { id: "desc" },
     }),
     prisma.expense.count(),
   ]);

@@ -5,6 +5,7 @@ import { getExpenses } from "../prisma-db";
 import { tableHeaders } from "../types/types";
 import { deleteExpense } from "../actions/expenses";
 import PaginationUI from "../components/pagination";
+import { Trash2 } from "lucide-react";
 
 export default async function Transactions({
   searchParams,
@@ -60,7 +61,7 @@ export default async function Transactions({
                         className='cursor-pointer'
                         variant={"destructive"}
                       >
-                        Delete
+                        <Trash2 />
                       </Button>
                     </form>
                   </td>
@@ -69,9 +70,15 @@ export default async function Transactions({
             })}
           </tbody>
         </table>
-        <div className='flex justify-end mr-36'>
-          <PaginationUI currentPage={currentPage} totalPages={totalPages} />
-        </div>
+        {data.length && totalPages > 0 ? (
+          <div className='flex w-10/12 justify-end'>
+            <PaginationUI currentPage={currentPage} totalPages={totalPages} />
+          </div>
+        ) : (
+          <p className='flex h-90 items-center text-medium justify-center'>
+            {"No records available"}
+          </p>
+        )}
       </div>
     </div>
   );
