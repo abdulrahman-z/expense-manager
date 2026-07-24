@@ -43,7 +43,7 @@ export default function RecentsView({
       </div>
       <div className='mt-7 p-3 flex justify-end'>
         <button className='cursor-pointer'>
-          <Link href='/transactions?page=1'>Go to Transactions </Link>
+          <Link href='/transactions'>Go to Transactions </Link>
         </button>
       </div>
     </div>

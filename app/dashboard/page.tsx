@@ -4,9 +4,7 @@ import { recentTransaction } from "../types/types";
 
 export default async function DashboardPage() {
   const { data } = await getExpenses(1, 8, true);
-  const recentExpenses: recentTransaction[] = data.filter(
-    (d, idx) => idx >= data.length - 5,
-  );
+  const recentExpenses: recentTransaction[] = data.filter((d, idx) => idx < 5);
 
   return <DashboardContent expenses={data} recentExpenses={recentExpenses} />;
 }
