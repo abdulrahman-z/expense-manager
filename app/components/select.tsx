@@ -11,15 +11,22 @@ export default function SelectMenu({
   items,
   id,
   name,
-  defaultValue,
+  value,
+  onValueChange,
 }: {
   items: { label: string; value: null | string }[];
   id: string;
   name: string;
-  defaultValue?: string | null;
+  value: string;
+  onValueChange: (value: string) => void;
 }) {
   return (
-    <Select items={items} name={name} defaultValue={defaultValue ?? undefined}>
+    <Select
+      items={items}
+      name={name}
+      value={value}
+      onValueChange={() => onValueChange}
+    >
       <SelectTrigger id={id} className='w-full max-w-full'>
         <SelectValue />
       </SelectTrigger>

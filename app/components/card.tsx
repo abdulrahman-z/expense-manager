@@ -10,7 +10,7 @@ export default function Card({
       <h2 className='text-3xl font-semibold tracking-wider text-zinc-300'>
         {title}
       </h2>
-      <p className='text-3xl flex gap-2 text-white font-bold'>
+      <p className='text-3xl flex gap-2 text-white font-bold tracking-wider'>
         <span>&#8377;</span>
         {amount}
       </p>

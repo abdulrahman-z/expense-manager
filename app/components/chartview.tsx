@@ -66,7 +66,7 @@ export default function ChartView({ expenses }: { expenses: transaction[] }) {
 
   return (
     <div className='bg-zinc-800 xl:max-w-8/12 grow mt-8 rounded-2xl shadow-2xl overflow-auto'>
-      <section className='w-100 h-120 p-8 mt-10 ml-20'>
+      <section className='h-120 md:w-10/12 mt-12 ml-10'>
         {dataValues.length > 0 ? (
           <Doughnut data={data} options={options} />
         ) : (

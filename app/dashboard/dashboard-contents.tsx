@@ -67,13 +67,14 @@ export default function DashboardContent({
 
       <div className='flex gap-4 mb-6'>
         <select
+          id='month'
           value={selectedMonth}
           onChange={(e) =>
             setSelectedMonth(
               e.target.value === "all" ? "all" : Number(e.target.value),
             )
           }
-          className='bg-zinc-700 text-white rounded-lg px-3 py-2 text-sm outline-none'
+          className='bg-zinc-700 text-white rounded-lg px-3 py-2 text-medium outline-none'
         >
           <option value='all'>All Months</option>
           {MONTH_NAMES.map((m, i) => (
@@ -84,13 +85,14 @@ export default function DashboardContent({
         </select>
 
         <select
+          id='year'
           value={selectedYear}
           onChange={(e) =>
             setSelectedYear(
               e.target.value === "all" ? "all" : Number(e.target.value),
             )
           }
-          className='bg-zinc-700 text-white rounded-lg px-3 py-2 text-sm outline-none'
+          className='bg-zinc-700 text-white rounded-lg px-3 py-2 text-medium outline-none'
         >
           <option value='all'>All Years</option>
           {availableYears.map((y) => (

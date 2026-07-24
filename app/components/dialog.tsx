@@ -26,6 +26,28 @@ import { useActionState, useRef, useState } from "react";
 import { dateFormatter } from "@/lib/utils";
 import { CirclePlus } from "lucide-react";
 
+const emptyForm = {
+  title: "",
+  amount: "",
+  date: "",
+  category: "",
+  paymentType: "",
+  subCategory: "",
+};
+
+function updateForm(expenseData?: transaction) {
+  return expenseData
+    ? {
+        title: expenseData.title ?? "",
+        amount: String(expenseData.amount ?? ""),
+        date: expenseData.date ? dateFormatter(expenseData.date) : "",
+        paymentType: expenseData.paymentType ?? "",
+        category: expenseData.category ?? "",
+        subCategory: expenseData.subCategory ?? "",
+      }
+    : emptyForm;
+}
+
 export default function ExpenseFormView({
   dialogTrigger,
   dialogTitle,
@@ -38,6 +60,14 @@ export default function ExpenseFormView({
   const initialState: FormState = { canSubmit: false, errors: {} };
   const [open, setOpen] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
+  const [formValues, setFormValues] = useState(() => updateForm(expenseData));
+
+  const handleDialogOpen = (isOpen: boolean) => {
+    if (open) {
+      setFormValues(updateForm(expenseData));
+    }
+    setOpen(isOpen);
+  };
 
   const action = expenseData
     ? updateExpense.bind(null, expenseData?.id)
@@ -47,6 +77,7 @@ export default function ExpenseFormView({
     const result = await action(prevState, formData);
     if (result.canSubmit) {
       formRef.current?.reset();
+      setFormValues(emptyForm);
       setOpen(false);
     }
     return result;
@@ -56,8 +87,13 @@ export default function ExpenseFormView({
     initialState,
   );
 
+  const updateField =
+    (field: keyof typeof formValues) =>
+    (e: React.ChangeEvent<HTMLInputElement>) =>
+      setFormValues((prev) => ({ ...prev, [field]: e.target.value }));
+
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={handleDialogOpen}>
       <DialogTrigger
         render={
           <Button
@@ -81,7 +117,8 @@ export default function ExpenseFormView({
                 id='title'
                 name='title'
                 placeholder='Enter expense title'
-                defaultValue={expenseData?.title}
+                value={formValues.title}
+                onChange={updateField("title")}
               />
               {state.errors?.title && (
                 <p className='text-red-400 font-medium'>{state.errors.title}</p>
@@ -94,7 +131,8 @@ export default function ExpenseFormView({
                 type='number'
                 min={0}
                 name='amount'
-                defaultValue={expenseData?.amount}
+                value={formValues.amount}
+                onChange={updateField("amount")}
               />
               {state.errors?.amount && (
                 <p className='text-red-400 font-medium'>
@@ -109,9 +147,8 @@ export default function ExpenseFormView({
                 type='date'
                 min={0}
                 name='date'
-                defaultValue={
-                  expenseData?.date && dateFormatter(expenseData?.date)
-                }
+                value={formValues.date}
+                onChange={updateField("date")}
               />
               {state.errors?.date && (
                 <p className='text-red-400 font-medium'>{state.errors.date}</p>
@@ -123,7 +160,10 @@ export default function ExpenseFormView({
                 items={Payments}
                 id='payment'
                 name='payment'
-                defaultValue={expenseData?.paymentType}
+                value={formValues.paymentType}
+                onValueChange={(val: string) =>
+                  setFormValues((prev) => ({ ...prev, paymentType: val }))
+                }
               />
               {state.errors?.paymentType && (
                 <p className='text-red-400 font-medium'>
@@ -137,7 +177,10 @@ export default function ExpenseFormView({
                 items={categories}
                 id='category'
                 name='category'
-                defaultValue={expenseData?.category}
+                value={formValues.category}
+                onValueChange={(val: string) =>
+                  setFormValues((prev) => ({ ...prev, category: val }))
+                }
               />
               {state.errors?.category && (
                 <p className='text-red-400 font-medium'>
@@ -151,7 +194,10 @@ export default function ExpenseFormView({
                 items={subCategories}
                 id='subcategory'
                 name='subcategory'
-                defaultValue={expenseData?.subCategory}
+                value={formValues.subCategory}
+                onValueChange={(val: string) =>
+                  setFormValues((prev) => ({ ...prev, subCategory: val }))
+                }
               />
               {state.errors?.subCategory && (
                 <p className='text-red-400 font-medium'>
