@@ -6,12 +6,15 @@ import { tableHeaders } from "../types/types";
 import { deleteExpense } from "../actions/expenses";
 import PaginationUI from "../components/pagination";
 import { Trash2 } from "lucide-react";
+import { auth } from "@clerk/nextjs/server";
 
 export default async function Transactions({
   searchParams,
 }: {
   searchParams: Promise<{ page: string }>;
 }) {
+  await auth.protect();
+
   const { page } = await searchParams;
   const currentPage = Number(page) || 1;
   const { data, totalPages } = await getExpenses(currentPage);
