@@ -161,9 +161,9 @@ export default function ExpenseFormView({
                 id='payment'
                 name='payment'
                 value={formValues.paymentType}
-                onValueChange={(val: string) =>
-                  setFormValues((prev) => ({ ...prev, paymentType: val }))
-                }
+                onValueChange={(val: string) => {
+                  setFormValues((prev) => ({ ...prev, paymentType: val }));
+                }}
               />
               {state.errors?.paymentType && (
                 <p className='text-red-400 font-medium'>

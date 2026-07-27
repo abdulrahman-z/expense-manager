@@ -3,35 +3,8 @@ import { Category, PaymentType } from "./types/types";
 
 const prisma = new PrismaClient();
 
-const seedData = async () => {
-  const count = await prisma.expense.count();
-  if (count === 0) {
-    await prisma.expense.createMany({
-      data: [
-        {
-          title: "Book purchase",
-          date: new Date(),
-          amount: 800,
-          paymentType: "GPay",
-          category: "shopping",
-          subCategory: "shopping",
-        },
-        {
-          title: "IM",
-          date: new Date(),
-          amount: 200,
-          paymentType: "GPay",
-          category: "entertainment",
-          subCategory: "movie",
-        },
-      ],
-    });
-  }
-};
-
-seedData();
-
 export const getExpenses = async (
+  userId: string,
   page: number = 1,
   size: number = 8,
   fetchAll: boolean = false,
@@ -40,11 +13,12 @@ export const getExpenses = async (
   const take = fetchAll ? undefined : size;
   const [data, total] = await Promise.all([
     prisma.expense.findMany({
+      where: { userId },
       skip,
       take,
-      orderBy: { id: "desc" },
+      orderBy: { date: "desc" },
     }),
-    prisma.expense.count(),
+    prisma.expense.count({ where: { userId } }),
   ]);
   return { data, total, totalPages: Math.ceil(total / size) };
 };
@@ -62,6 +36,7 @@ export const addExpense = async (
   paymentType: PaymentType,
   category: Category,
   subCategory: string,
+  userId: string,
 ) => {
   const newExpense = await prisma.expense.create({
     data: {
@@ -71,14 +46,15 @@ export const addExpense = async (
       paymentType,
       category,
       subCategory,
+      userId,
     },
   });
   return { data: newExpense };
 };
 
-export const removeExpense = async (id: string) => {
+export const removeExpense = async (id: string, userId: string) => {
   await prisma.expense.delete({
-    where: { id },
+    where: { id, userId },
   });
 };
 
@@ -90,9 +66,10 @@ export const updateExpenseData = async (
   paymentType: PaymentType,
   category: Category,
   subCategory: string,
+  userId: string,
 ) => {
   await prisma.expense.update({
-    where: { id },
+    where: { id, userId },
     data: {
       title,
       amount,

@@ -30,7 +30,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className='min-h-full'>
-        <ClerkProvider>
+        <ClerkProvider afterSignOutUrl='/'>
           <div className='flex flex-col h-screen w-full'>
             <main className='flex w-full h-full max-w-[1600] text-black mx-auto overflow-hidden'>
               <SideBar />

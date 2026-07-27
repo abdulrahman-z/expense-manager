@@ -88,6 +88,7 @@ Prisma.NullTypes = {
  */
 exports.Prisma.ExpenseScalarFieldEnum = {
   id: 'id',
+  userId: 'userId',
   title: 'title',
   amount: 'amount',
   category: 'category',
@@ -167,7 +168,6 @@ const config = {
     "db"
   ],
   "activeProvider": "mongodb",
-  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -176,13 +176,13 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Get a free hosted Postgres database in seconds: `npx create-db`\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"generated/prisma\"\n}\n\ndatasource db {\n  provider = \"mongodb\"\n  url      = env(\"DATABASE_URL\")\n}\n\nenum Category {\n  internet\n  mobile\n  shopping\n  health\n  paymentTo\n  food\n  travel\n  bills\n  entertainment\n  others\n}\n\nenum PaymentType {\n  Cash\n  GPay\n  PhonePe\n  DebitCard\n}\n\nmodel Expense {\n  id          String      @id @default(auto()) @map(\"_id\") @db.ObjectId\n  title       String\n  amount      Int\n  category    Category\n  date        DateTime\n  paymentType PaymentType\n  subCategory String\n\n  @@map(\"expensedoc\")\n}\n",
-  "inlineSchemaHash": "4349d28bae5122a2f864c050e558e075f581311c5b1f39804e0392e8f3cb7efb",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Get a free hosted Postgres database in seconds: `npx create-db`\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"generated/prisma\"\n}\n\ndatasource db {\n  provider = \"mongodb\"\n  url      = env(\"DATABASE_URL\")\n}\n\nenum Category {\n  internet\n  mobile\n  shopping\n  health\n  paymentTo\n  food\n  travel\n  bills\n  entertainment\n  others\n}\n\nenum PaymentType {\n  Cash\n  GPay\n  PhonePe\n  DebitCard\n}\n\nmodel Expense {\n  id          String      @id @default(auto()) @map(\"_id\") @db.ObjectId\n  userId      String\n  title       String\n  amount      Int\n  category    Category\n  date        DateTime\n  paymentType PaymentType\n  subCategory String\n\n  @@index([userId])\n  @@map(\"expensedoc\")\n}\n",
+  "inlineSchemaHash": "983040b69b35908ba8b1a4547de2180836b844ba91451c4b95a3b5c03bc921c1",
   "copyEngine": true
 }
 config.dirname = '/'
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"Expense\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"_id\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"amount\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"category\",\"kind\":\"enum\",\"type\":\"Category\"},{\"name\":\"date\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"paymentType\",\"kind\":\"enum\",\"type\":\"PaymentType\"},{\"name\":\"subCategory\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":\"expensedoc\"}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"Expense\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"_id\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"amount\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"category\",\"kind\":\"enum\",\"type\":\"Category\"},{\"name\":\"date\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"paymentType\",\"kind\":\"enum\",\"type\":\"PaymentType\"},{\"name\":\"subCategory\",\"kind\":\"scalar\",\"type\":\"String\"}],\"dbName\":\"expensedoc\"}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = {
   getRuntime: async () => require('./query_engine_bg.js'),

@@ -1,5 +1,6 @@
 "use server";
 
+import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 import { addExpense, removeExpense, updateExpenseData } from "../prisma-db";
 import { Category, PaymentType } from "../types/types";
@@ -23,6 +24,13 @@ export const createExpense = async (
   prevState: FormState,
   formData: FormData,
 ): Promise<FormState> => {
+  const { userId } = await auth();
+  if (!userId) {
+    return {
+      canSubmit: false,
+      errors: { general: "You must be signed in to add an expense" },
+    };
+  }
   const title = formData.get("title") as string;
   const amount = formData.get("amount") as string;
   const date = formData.get("date") as string;
@@ -51,6 +59,7 @@ export const createExpense = async (
       paymentType,
       category,
       subCategory,
+      userId,
     );
   } catch (err) {
     console.error("createExpense failed:", err);
@@ -67,7 +76,11 @@ export const createExpense = async (
 };
 
 export const deleteExpense = async (id: string) => {
-  await removeExpense(id);
+  const { userId } = await auth();
+  if (!userId) {
+    throw new Error("You must be signed in to delete an expense");
+  }
+  await removeExpense(id, userId);
   revalidatePath("/transactions");
 };
 
@@ -76,6 +89,14 @@ export const updateExpense = async (
   prevState: FormState,
   formData: FormData,
 ): Promise<FormState> => {
+  const { userId } = await auth();
+  if (!userId) {
+    return {
+      canSubmit: false,
+      errors: { general: "You must be signed in to edit an expense" },
+    };
+  }
+
   const title = formData.get("title") as string;
   const amount = formData.get("amount") as string;
   const date = formData.get("date") as string;
@@ -105,6 +126,7 @@ export const updateExpense = async (
       paymentType,
       category,
       subCategory,
+      userId,
     );
   } catch (err) {
     console.error("Update Expense failed:", err);

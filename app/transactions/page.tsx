@@ -7,6 +7,7 @@ import { deleteExpense } from "../actions/expenses";
 import PaginationUI from "../components/pagination";
 import { Trash2 } from "lucide-react";
 import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 
 export default async function Transactions({
   searchParams,
@@ -15,9 +16,12 @@ export default async function Transactions({
 }) {
   await auth.protect();
 
+  const { userId } = await auth();
+  if (!userId) redirect("/sign-in");
+
   const { page } = await searchParams;
   const currentPage = Number(page) || 1;
-  const { data, totalPages } = await getExpenses(currentPage);
+  const { data, totalPages } = await getExpenses(userId, currentPage);
 
   return (
     <div className='p-8 flex flex-col h-[860] overflow-y-auto'>

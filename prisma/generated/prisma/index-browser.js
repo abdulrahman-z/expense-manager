@@ -116,6 +116,7 @@ Prisma.NullTypes = {
 
 exports.Prisma.ExpenseScalarFieldEnum = {
   id: 'id',
+  userId: 'userId',
   title: 'title',
   amount: 'amount',
   category: 'category',

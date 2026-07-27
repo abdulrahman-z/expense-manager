@@ -36,12 +36,14 @@ enum PaymentType {
 
 model Expense {
   id          String      @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String
   title       String
   amount      Int
   category    Category
   date        DateTime
   paymentType PaymentType
   subCategory String
-
+  
+  @@index([userId])
   @@map("expensedoc")
 }

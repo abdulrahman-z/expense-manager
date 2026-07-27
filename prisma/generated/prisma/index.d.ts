@@ -872,6 +872,7 @@ export namespace Prisma {
 
   export type ExpenseMinAggregateOutputType = {
     id: string | null
+    userId: string | null
     title: string | null
     amount: number | null
     category: $Enums.Category | null
@@ -882,6 +883,7 @@ export namespace Prisma {
 
   export type ExpenseMaxAggregateOutputType = {
     id: string | null
+    userId: string | null
     title: string | null
     amount: number | null
     category: $Enums.Category | null
@@ -892,6 +894,7 @@ export namespace Prisma {
 
   export type ExpenseCountAggregateOutputType = {
     id: number
+    userId: number
     title: number
     amount: number
     category: number
@@ -912,6 +915,7 @@ export namespace Prisma {
 
   export type ExpenseMinAggregateInputType = {
     id?: true
+    userId?: true
     title?: true
     amount?: true
     category?: true
@@ -922,6 +926,7 @@ export namespace Prisma {
 
   export type ExpenseMaxAggregateInputType = {
     id?: true
+    userId?: true
     title?: true
     amount?: true
     category?: true
@@ -932,6 +937,7 @@ export namespace Prisma {
 
   export type ExpenseCountAggregateInputType = {
     id?: true
+    userId?: true
     title?: true
     amount?: true
     category?: true
@@ -1029,6 +1035,7 @@ export namespace Prisma {
 
   export type ExpenseGroupByOutputType = {
     id: string
+    userId: string
     title: string
     amount: number
     category: $Enums.Category
@@ -1058,6 +1065,7 @@ export namespace Prisma {
 
   export type ExpenseSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    userId?: boolean
     title?: boolean
     amount?: boolean
     category?: boolean
@@ -1070,6 +1078,7 @@ export namespace Prisma {
 
   export type ExpenseSelectScalar = {
     id?: boolean
+    userId?: boolean
     title?: boolean
     amount?: boolean
     category?: boolean
@@ -1078,13 +1087,14 @@ export namespace Prisma {
     subCategory?: boolean
   }
 
-  export type ExpenseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "amount" | "category" | "date" | "paymentType" | "subCategory", ExtArgs["result"]["expense"]>
+  export type ExpenseOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "title" | "amount" | "category" | "date" | "paymentType" | "subCategory", ExtArgs["result"]["expense"]>
 
   export type $ExpensePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Expense"
     objects: {}
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      userId: string
       title: string
       amount: number
       category: $Enums.Category
@@ -1484,6 +1494,7 @@ export namespace Prisma {
    */
   interface ExpenseFieldRefs {
     readonly id: FieldRef<"Expense", 'String'>
+    readonly userId: FieldRef<"Expense", 'String'>
     readonly title: FieldRef<"Expense", 'String'>
     readonly amount: FieldRef<"Expense", 'Int'>
     readonly category: FieldRef<"Expense", 'Category'>
@@ -1844,6 +1855,7 @@ export namespace Prisma {
 
   export const ExpenseScalarFieldEnum: {
     id: 'id',
+    userId: 'userId',
     title: 'title',
     amount: 'amount',
     category: 'category',
@@ -1968,6 +1980,7 @@ export namespace Prisma {
     OR?: ExpenseWhereInput[]
     NOT?: ExpenseWhereInput | ExpenseWhereInput[]
     id?: StringFilter<"Expense"> | string
+    userId?: StringFilter<"Expense"> | string
     title?: StringFilter<"Expense"> | string
     amount?: IntFilter<"Expense"> | number
     category?: EnumCategoryFilter<"Expense"> | $Enums.Category
@@ -1978,6 +1991,7 @@ export namespace Prisma {
 
   export type ExpenseOrderByWithRelationInput = {
     id?: SortOrder
+    userId?: SortOrder
     title?: SortOrder
     amount?: SortOrder
     category?: SortOrder
@@ -1991,6 +2005,7 @@ export namespace Prisma {
     AND?: ExpenseWhereInput | ExpenseWhereInput[]
     OR?: ExpenseWhereInput[]
     NOT?: ExpenseWhereInput | ExpenseWhereInput[]
+    userId?: StringFilter<"Expense"> | string
     title?: StringFilter<"Expense"> | string
     amount?: IntFilter<"Expense"> | number
     category?: EnumCategoryFilter<"Expense"> | $Enums.Category
@@ -2001,6 +2016,7 @@ export namespace Prisma {
 
   export type ExpenseOrderByWithAggregationInput = {
     id?: SortOrder
+    userId?: SortOrder
     title?: SortOrder
     amount?: SortOrder
     category?: SortOrder
@@ -2019,6 +2035,7 @@ export namespace Prisma {
     OR?: ExpenseScalarWhereWithAggregatesInput[]
     NOT?: ExpenseScalarWhereWithAggregatesInput | ExpenseScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Expense"> | string
+    userId?: StringWithAggregatesFilter<"Expense"> | string
     title?: StringWithAggregatesFilter<"Expense"> | string
     amount?: IntWithAggregatesFilter<"Expense"> | number
     category?: EnumCategoryWithAggregatesFilter<"Expense"> | $Enums.Category
@@ -2029,6 +2046,7 @@ export namespace Prisma {
 
   export type ExpenseCreateInput = {
     id?: string
+    userId: string
     title: string
     amount: number
     category: $Enums.Category
@@ -2039,6 +2057,7 @@ export namespace Prisma {
 
   export type ExpenseUncheckedCreateInput = {
     id?: string
+    userId: string
     title: string
     amount: number
     category: $Enums.Category
@@ -2048,6 +2067,7 @@ export namespace Prisma {
   }
 
   export type ExpenseUpdateInput = {
+    userId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     amount?: IntFieldUpdateOperationsInput | number
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
@@ -2057,6 +2077,7 @@ export namespace Prisma {
   }
 
   export type ExpenseUncheckedUpdateInput = {
+    userId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     amount?: IntFieldUpdateOperationsInput | number
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
@@ -2067,6 +2088,7 @@ export namespace Prisma {
 
   export type ExpenseCreateManyInput = {
     id?: string
+    userId: string
     title: string
     amount: number
     category: $Enums.Category
@@ -2076,6 +2098,7 @@ export namespace Prisma {
   }
 
   export type ExpenseUpdateManyMutationInput = {
+    userId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     amount?: IntFieldUpdateOperationsInput | number
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
@@ -2085,6 +2108,7 @@ export namespace Prisma {
   }
 
   export type ExpenseUncheckedUpdateManyInput = {
+    userId?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     amount?: IntFieldUpdateOperationsInput | number
     category?: EnumCategoryFieldUpdateOperationsInput | $Enums.Category
@@ -2146,6 +2170,7 @@ export namespace Prisma {
 
   export type ExpenseCountOrderByAggregateInput = {
     id?: SortOrder
+    userId?: SortOrder
     title?: SortOrder
     amount?: SortOrder
     category?: SortOrder
@@ -2160,6 +2185,7 @@ export namespace Prisma {
 
   export type ExpenseMaxOrderByAggregateInput = {
     id?: SortOrder
+    userId?: SortOrder
     title?: SortOrder
     amount?: SortOrder
     category?: SortOrder
@@ -2170,6 +2196,7 @@ export namespace Prisma {
 
   export type ExpenseMinOrderByAggregateInput = {
     id?: SortOrder
+    userId?: SortOrder
     title?: SortOrder
     amount?: SortOrder
     category?: SortOrder
