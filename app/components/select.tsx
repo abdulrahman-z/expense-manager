@@ -26,6 +26,7 @@ export default function SelectMenu({
       name={name}
       value={value}
       onValueChange={(newValue) => onValueChange(newValue ?? "")}
+      required
     >
       <SelectTrigger id={id} className='w-full max-w-full'>
         <SelectValue />

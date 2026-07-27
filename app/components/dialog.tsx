@@ -117,8 +117,10 @@ export default function ExpenseFormView({
                 id='title'
                 name='title'
                 placeholder='Enter expense title'
+                minLength={3}
                 value={formValues.title}
                 onChange={updateField("title")}
+                required
               />
               {state.errors?.title && (
                 <p className='text-red-400 font-medium'>{state.errors.title}</p>
@@ -129,10 +131,11 @@ export default function ExpenseFormView({
               <Input
                 id='amount'
                 type='number'
-                min={0}
+                min={10}
                 name='amount'
                 value={formValues.amount}
                 onChange={updateField("amount")}
+                required
               />
               {state.errors?.amount && (
                 <p className='text-red-400 font-medium'>
@@ -145,10 +148,10 @@ export default function ExpenseFormView({
               <Input
                 id='date'
                 type='date'
-                min={0}
                 name='date'
                 value={formValues.date}
                 onChange={updateField("date")}
+                required
               />
               {state.errors?.date && (
                 <p className='text-red-400 font-medium'>{state.errors.date}</p>
